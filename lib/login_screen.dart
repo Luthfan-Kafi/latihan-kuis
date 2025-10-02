@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: ElevatedButton(
         onPressed: () {
           String text = "";
-          if (_username.text == "admin" && _password.text == "admin") {
+          if (_username.text.isNotEmpty && _password.text == "admin") {
             text = "Login Berhasil";
             Navigator.pushReplacement(
               context,

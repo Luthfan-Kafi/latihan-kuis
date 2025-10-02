@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
 import 'vehicle-data.dart';
 
-class VehicleDetailScreen extends StatelessWidget {
+class VehicleDetailScreen extends StatefulWidget {
   final Vehicle daftar;
   const VehicleDetailScreen({super.key, required this.daftar});
 
+  @override
+  State<VehicleDetailScreen> createState() => _VehicleDetailScreenState();
+}
+
+class _VehicleDetailScreenState extends State<VehicleDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, true),
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
         title: Text(
-          daftar.name,
+          widget.daftar.name,
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                widget.daftar.isBookmarked = !widget.daftar.isBookmarked;
+              });
+            },
+            icon: Icon(
+              widget.daftar.isBookmarked
+                  ? Icons.bookmark
+                  : Icons.bookmark_border,
+            ),
+            color: Colors.white,
+          ),
+        ],
         backgroundColor: Colors.brown,
         elevation: 0,
       ),
@@ -29,7 +49,7 @@ class VehicleDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              daftar.imageUrls[0],
+              widget.daftar.imageUrls[0],
               width: double.infinity,
               height: 250,
               fit: BoxFit.cover,
@@ -59,7 +79,7 @@ class VehicleDetailScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          daftar.price,
+                          widget.daftar.price,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -71,9 +91,9 @@ class VehicleDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  _buildInfoRow(Icons.category, 'Type', daftar.type),
+                  _buildInfoRow(Icons.category, 'Type', widget.daftar.type),
                   const SizedBox(height: 12),
-                  _buildInfoRow(Icons.settings, 'Engine', daftar.engine),
+                  _buildInfoRow(Icons.settings, 'Engine', widget.daftar.engine),
                   const SizedBox(height: 20),
 
                   const Text(
@@ -86,7 +106,7 @@ class VehicleDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    daftar.description,
+                    widget.daftar.description,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],

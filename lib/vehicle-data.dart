@@ -7,6 +7,7 @@ class Vehicle {
   String price;
   String imageAsset;
   List<String> imageUrls;
+  bool isBookmarked;
 
   Vehicle({
     required this.name,
@@ -17,6 +18,7 @@ class Vehicle {
     required this.price,
     required this.imageAsset,
     required this.imageUrls,
+    this.isBookmarked = false,
   });
 }
 
